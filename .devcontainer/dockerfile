@@ -1,0 +1,57 @@
+ARG PYTHON_TAG
+FROM python:${PYTHON_TAG}
+
+LABEL maintainer="Sylvia Schmitt"
+
+WORKDIR /
+
+# nano editor
+RUN apt-get update -y \
+    && apt-get install -y apt-utils nano \
+    && apt-get autoremove -y \  
+    && apt-get autoclean -y \  
+    && rm -rf /var/lib/apt/lists/*  
+
+# upgrade pip
+RUN pip3 install --upgrade pip==21.0
+
+# tabnine & jupyterlab & jupyterlab-debugger...
+RUN apt-get update -y \
+    #prerequisites
+    # get higher version of nodejs (default was 10.x)
+    #&& curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash - \
+    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y nodejs \
+    && pip3 install --no-cache-dir nodejs npm ipympl \    
+    #jupyter lab
+    && pip3 install --no-cache-dir jupyter jupyterlab \
+    #tabnine 
+    && pip3 install --no-cache-dir jupyter-tabnine \
+    && jupyter nbextension install --py jupyter_tabnine \
+    && jupyter nbextension enable --py jupyter_tabnine \
+    && jupyter serverextension enable --py jupyter_tabnine \
+    #ipywidgets
+    && pip3 install --no-cache-dir ipywidgets \ 
+    && jupyter nbextension enable --py widgetsnbextension \
+    && jupyter labextension install @jupyter-widgets/jupyterlab-manager \
+    #clean&build
+    && jupyter lab clean \
+    && jupyter lab build \
+    #clean up    
+    && apt-get autoremove -y \  
+    && apt-get autoclean -y \  
+    && rm -rf /var/lib/apt/lists/*    
+
+
+# python libs from requirements
+COPY requirements.txt /tmp/
+RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
+
+RUN mkdir -p /workspace && chmod -R a+rwx /workspace/ 
+RUN mkdir /.local && chmod a+rwx /.local
+WORKDIR /workspace
+
+EXPOSE 8888
+
+RUN python3 -m ipykernel.kernelspec
+CMD ["bash", "-c", "source /etc/bash.bashrc && jupyter-lab --notebook-dir=/workspace --ip 0.0.0.0 --no-browser --allow-root"]

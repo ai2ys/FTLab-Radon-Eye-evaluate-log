@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "docsmsft.docs-markdown",
+        "mhutchie.git-graph",
+        "ms-python.vscode-pylance",
+        "njpwerner.autodocstring",
+        "ms-python.python"
+    ]
+}
