@@ -9,7 +9,7 @@ function usage() {
 $(basename $0) [-h] [-b <pyhton version>] [-r <pyhton version>] [-p <target port>]
 Build/run docker:
     -h  help
-    -b  build image using the specified Python version (3.7-3.11), e.g. '-b 3.9' for Python 3.9
+    -b  build image using the specified Python version (3.7-3.10), e.g. '-b 3.9' for Python 3.9
     -r  run container
     -p  target port (default 8888)
 """
@@ -45,7 +45,7 @@ function set_python_version_and_tag(){
     echo "python arg: '${python_arg}'"
 
     # allow python versions 3.7-3.11
-    tmp_pat="(3.([7-9]|[1][0-1]))"
+    tmp_pat="(3.([7-9]|[1][0]))"
     pat='^('$tmp_pat')$'
 
     [[ "${python_version_arg}" =~ ${pat} ]]
