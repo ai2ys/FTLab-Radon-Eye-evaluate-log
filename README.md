@@ -15,13 +15,17 @@ A Jupyter notebook is used for the evaluation of the Evaluate FTLab Radon Eye (B
 
 ### Created plots
 Measurements displayed as line plot for the overall time.
-![lineplot.svg](lineplot.svg)
+![plot_lineplot.svg](plot_lineplot.svg)
 
 Measurements grouped for overall time grouped by the hours of the day.
-![boxplot.svg](boxplot.svg)
+![plot_boxplot.svg](plot_boxplot.svg)
 
 
-## Using the Docker file
-Run the script '.devcontainer/docker_build_run.sh'. Jupyter notebook has been executed using Python 3.9.
-- Building the Docker image using `.devcontainer/docker_build_run.sh -b 3.9`
-- Running the Docker container using `.devcontainer/docker_build_run.sh -r 3.9`
+## Running the Docker image using `docker-compose`
+```
+# starting
+docker-compose up
+
+# stopping
+docker-compose down
+```

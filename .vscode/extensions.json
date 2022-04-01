@@ -4,6 +4,10 @@
         "mhutchie.git-graph",
         "ms-python.vscode-pylance",
         "njpwerner.autodocstring",
-        "ms-python.python"
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "bierner.emojisense",
+        "ms-toolsai.jupyter-renderers"
     ]
 }

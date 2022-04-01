@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  python:
+    container_name: ftlab_radoneye
+    working_dir: $working_dir
+    command: ["bash", "-c", "$cmd_bash"] 
+    image: ai2ys/ftlab-radon-eye-evaluate-log:0.0.0
+    build:
+      context: docker
+      dockerfile: dockerfile
+      args:
+        WORKSPACE: $working_dir
+        PYTHON_TAG: "3.9-buster"
+    volumes:
+      - .:$working_dir
+    expose:
+      - 8888
+    ports:
+      - 8888:8888
+    stdin_open: true
+    tty: true

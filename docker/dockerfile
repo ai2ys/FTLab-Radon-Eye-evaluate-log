@@ -49,9 +49,12 @@ RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 
 RUN mkdir -p /workspace && chmod -R a+rwx /workspace/ 
 RUN mkdir /.local && chmod a+rwx /.local
-WORKDIR /workspace
 
-EXPOSE 8888
+ARG WORKSPACE=/workspace
+WORKDIR ${WORKSPACE}
 
-RUN python3 -m ipykernel.kernelspec
-CMD ["bash", "-c", "source /etc/bash.bashrc && jupyter-lab --notebook-dir=/workspace --ip 0.0.0.0 --no-browser --allow-root"]
+#EXPOSE 8888
+
+#RUN python3 -m ipykernel.kernelspec
+#CMD ["bash", "-c", "jupyter-lab --notebook-dir=/workspace --ip 0.0.0.0 --no-browser"] 
+#--allow-root"]
